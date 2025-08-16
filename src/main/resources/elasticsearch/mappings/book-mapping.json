@@ -1,0 +1,68 @@
+{
+  "properties": {
+    "id": {
+      "type": "keyword"
+    },
+    "isbn": {
+      "type": "keyword"
+    },
+    "author": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        },
+        "auto_complete": {
+          "type": "completion"
+        }
+      }
+    },
+    "publishedDate": {
+      "type": "date",
+      "format": "yyyy-MM-dd||strict_date||epoch_millis"
+    },
+    "rating": {
+      "type": "double"
+    },
+    "inStock": {
+      "type": "boolean"
+    },
+    "price": {
+      "type": "double"
+    },
+    "description": {
+      "type": "text"
+    },
+    "title": {
+      "type": "text",
+      "fields": {
+        "auto_complete": {
+          "type": "completion"
+        },
+        "match_on_search": {
+          "type": "text",
+          "analyzer": "search_match_analyzer",
+          "search_analyzer": "standard"
+        },
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    },
+    "createdAt": {
+      "type": "date",
+      "format": "strict_date_optional_time||epoch_millis"
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

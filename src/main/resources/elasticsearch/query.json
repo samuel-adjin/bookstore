@@ -1,0 +1,239 @@
+{
+  "1": {
+    "query": {
+      "term": {
+        "author.keyword": "Alice Johnson"
+      }
+    }
+  },
+  "2": {
+    "query": {
+      "term": {
+        "title.keyword": "Mastering Java"
+      }
+
+    }
+  },
+  "3":{
+    "query": {
+      "term": {
+        "inStock": true
+      }
+    }
+  },
+  "4": {
+    "query": {
+      "range": {
+        "price": {
+            "gte": 20,
+            "lte": 50
+        }
+      }
+    }
+  },
+  "5": {
+      "query": {
+        "range": {
+          "rating": {
+            "gt": 4.0
+          }
+        }
+      }
+  },
+  "6": {
+      "query": {
+        "multi_match": {
+            "query": "Java",
+            "fields": ["title","description"]
+        }
+      }
+  },
+  "7": {
+    "query": {
+      "terms": {
+        "author.keyword": ["Alice Johnson","Bob Smith"]
+      }
+    }
+  },
+  "8": {
+    "query": {
+      "bool": {
+        "must": {
+          "term": {
+            "inStock": true
+          }
+        },
+        "filter": [
+          {
+            "range": {
+              "price": {
+                "gt": 30,
+                "lt": 80
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "9": {
+     "query": {
+       "bool": {
+         "must": [
+           {
+             "multi_match": {
+               "query": "development",
+               "fields": ["title","description"]
+             }
+           }
+         ],
+         "filter": [
+           {
+             "range": {
+               "rating": {
+                 "gte": 3.5
+               }
+             }
+           }
+         ]
+       }
+     }
+  },
+  "10": {
+    "query": {
+      "term": {
+        "publishedDate": "now-2y/y"
+      }
+    }
+  },
+  "11": {
+    "size": 0,
+      "aggs": {
+        "authors": {
+          "terms": {
+            "fields": "author"
+          }
+        }
+      }
+    },
+  "12": {
+    "size": 0,
+   "aggs": {
+     "price_by_book_status": {
+       "filters": {
+         "filters": [
+           {
+             "inStock": {
+               "term": {
+                 "inStock": true
+               }
+             },
+             "outStock": {
+               "term": {
+                 "inStock": false
+               }
+             }
+           }
+         ]
+       }
+     },
+     "aggs": {
+       "avg_price": {
+         "avg": {
+            "field": "price"
+         }
+       }
+     }
+   }
+  },
+  "12-A": {
+    "size": 0,
+    "aggs": {
+      "in_stock_books": {
+        "filter": {
+          "term": {"inStock": true}
+        },
+        "aggs": {
+          "avg_price": {
+            "avg": {"field": "price"}
+          }
+        }
+      },
+      "out_of_stock_books": {
+        "filter": {
+          "term": {"inStock": false}
+        },
+        "aggs": {
+          "avg_price": {
+            "avg": {"field": "price"}
+          }
+        }
+      }
+    }
+  },
+  "13": {
+    "size": 0,
+    "aggs": {
+      "price_ranges_books": {
+
+        "range": {
+          "field": "price",
+          "ranges": [
+
+            {
+              "from": 0.0, "to":25.0
+            },
+            {
+              "from": 25.0, "to":50.0
+            },
+            {
+              "from": 50.0, "to":75.0
+            },
+            {
+              "from": 75.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "14": {
+    "size": 5,
+    "query": {
+      "bool": {
+        "filter": [
+          {
+            "term": {
+              "inStock": true
+            }
+          }
+        ],
+        "sort": [
+          {
+            "rating": {
+              "order": "desc"
+            }
+          }
+        ]
+      }
+    }
+  },
+"30":{
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "inStock": true
+          }
+        }
+      ]
+  },
+  "sort": [
+    {
+      "rating": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+  }

@@ -1,0 +1,24 @@
+{
+  "analysis": {
+    "analyzer": {
+      "search_match_analyzer": {
+        "tokenizer": "search_match_tokenizer",
+        "filter": ["lowercase", "stop_word_filter"]
+      }
+    },
+    "tokenizer": {
+      "search_match_tokenizer": {
+        "type": "edge_ngram",
+        "min_gram": 2,
+        "max_gram": 10,
+        "token_chars": ["letter", "digit"]
+      }
+    },
+    "filter": {
+      "stop_word_filter": {
+        "type": "stop",
+        "ignore_case": true
+      }
+    }
+  }
+}
